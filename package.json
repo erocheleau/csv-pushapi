@@ -1,0 +1,20 @@
+{
+  "name": "coveo-push-csv",
+  "version": "1.0.0",
+  "description": "Small Nodejs app to parse CSV and push to Coveo Cloud",
+  "main": "index.js",
+  "scripts": {
+    "test": "test",
+    "startLog": "node src/index.js > src/output.txt",
+    "start": "node src/index.js"
+  },
+  "author": "Greg Laporte",
+  "license": "Apache-2.0",
+  "dependencies": {
+    "base-64": "^0.1.0",
+    "csv-parse": "^1.2.0",
+    "md5": "^2.2.1",
+    "request": "^2.74.0",
+    "utf8": "^2.1.2"
+  }
+}
