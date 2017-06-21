@@ -1,5 +1,5 @@
 {
-  "name": "coveo-push-csv",
+  "name": "csv-pushapi",  /* Should match the name of the project */
   "version": "1.0.0",
   "description": "Small Nodejs app to parse CSV and push to Coveo Cloud",
   "main": "index.js",
@@ -11,10 +11,10 @@
   "author": "Greg Laporte",
   "license": "Apache-2.0",
   "dependencies": {
-    "base-64": "^0.1.0",
+   // "base-64": "^0.1.0", /* I don't where that package is used */
     "csv-parse": "^1.2.0",
-    "md5": "^2.2.1",
-    "request": "^2.74.0",
-    "utf8": "^2.1.2"
+   // "md5": "^2.2.1", /* I don't where that package is used */
+    "request": "^2.74.0"
+   // "utf8": "^2.1.2" /* I don't where that package is used */
   }
 }
