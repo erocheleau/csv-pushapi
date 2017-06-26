@@ -10,10 +10,8 @@ export COVEO_SOURCEID=ID of your push source
 export COVEO_ORGANIZATIONID=ID of your Coveo organization
 export COVEO_PUSH_TOKEN=APIKEY to push to your Coveo organization
 
-node src/index.js input.csv
+node src/index.js input.csv documentUrlColumn
 ```
 
-# Where to get your tokens
-
-## Available documentation
+# Available documentation
 https://developers.coveo.com/display/CloudPlatform/Push+API+Usage+Overview
