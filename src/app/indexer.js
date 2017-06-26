@@ -6,7 +6,7 @@ const PushClient = require('./PushClient'),
 
 
 // TOKEN TO PUSH TO THE COVEO PUSH API
-let pushApiKey = process.env.APIKEY || '';
+let pushApiKey = process.env.PUSHAPIKEY || '';
 // ID OF THE COVEO ORGANIZATION TO PUSH TO
 let organizationId = process.env.ORGANIZATIONID || '';
 // ID OF THE SOURCE TO PUSH TO

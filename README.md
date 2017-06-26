@@ -6,9 +6,9 @@ Using the push API to index files from CSV with Coveo
 
 # How to run
 ```sh
-export COVEO_SOURCEID=ID of your push source
-export COVEO_ORGANIZATIONID=ID of your Coveo organization
-export COVEO_PUSH_TOKEN=APIKEY to push to your Coveo organization
+export SOURCEID=ID of your push source
+export ORGANIZATIONID=ID of your Coveo organization
+export PUSHAPIKEY=APIKEY to push to your Coveo organization
 
 node src/index.js input.csv documentUrlColumn
 ```
