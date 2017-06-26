@@ -1,19 +1,17 @@
-# coveo-CSV-pushapi
+# csv-pushapi
 Using the push API to index files from CSV with Coveo
 
-# To install
+# How to build
 `npm install`
 
-# To run
+# How to run
 ```sh
-export COVEO_SOURCEID=ID of your push source
-export COVEO_ORGANIZATIONID=ID of your Coveo organization
-export COVEO_PUSH_TOKEN=APIKEY to push to your Coveo organization
+export SOURCEID=ID of your push source
+export ORGANIZATIONID=ID of your Coveo organization
+export PUSHAPIKEY=APIKEY to push to your Coveo organization
 
-npm start
+node src/index.js input.csv documentUrlColumn
 ```
 
-# Where to get your tokens
-
-## Coveo push API documentation
+# Available documentation
 https://developers.coveo.com/display/CloudPlatform/Push+API+Usage+Overview
