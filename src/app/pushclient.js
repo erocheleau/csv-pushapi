@@ -1,6 +1,4 @@
 var request = require('request');
-var rp = require('request-promise');
-// var Sleep = require('system-sleep');
 var assert = require('assert');
 var promiseRetry = require('promise-retry');
 var Q = require('q');
