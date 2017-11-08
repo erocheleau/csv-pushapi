@@ -1,13 +1,5 @@
-/**
- * You need to rename this file to CsvParser.js
- * Good OS are case-sensitive. :-)
- */
-
-
 // This assumes that you have a header in your CSV and one of the column is named id
 const fs = require('fs'),
-  // readline wasn't used
-  // Document wasn't used
   csv = require('csv-parse');
 
 function sanitizeHeaders(headers) {

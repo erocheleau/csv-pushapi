@@ -1,22 +1,12 @@
-/**
- * You need to rename this file to PushClient.js
- * Good OS are case-sensitive.
- */
-
 const request = require('request');
 
 module.exports = class PushClient {
 
   constructor(pushConfig, retryOptions) {
-    if(!pushConfig.organizationId) {
-      throw new Error(`PushClient needs an organizationId in the pushConfig.`);
-    }
-    if(!pushConfig.sourceId) {
-      throw new Error(`PushClient needs an sourceId in the pushConfig.`);
-    }
-    if(!pushConfig.pushApiKey) {
-      throw new Error(`PushClient needs an pushApiKey in the pushConfig.`);
-    }
+    if(!pushConfig.organizationId) { throw new Error(`PushClient needs an organizationId in the pushConfig.`); }
+    if(!pushConfig.sourceId) { throw new Error(`PushClient needs an sourceId in the pushConfig.`); }
+    if(!pushConfig.pushApiKey) { throw new Error(`PushClient needs an pushApiKey in the pushConfig.`); }
+
     this.organizationId = pushConfig.organizationId;
     this.sourceId = pushConfig.sourceId;
     this.pushApiKey = pushConfig.pushApiKey;
@@ -54,17 +44,10 @@ module.exports = class PushClient {
     let params = this.getRequestParams(document);
     request( params, (error, response, body) => {
       if(error) {
-        this.tryAgain(error, document, ++retryCount, callback);
+        this.pushDocumentRetry(error, document, ++retryCount, callback);
         return;
-        // if (this.RETRY && retryCount < this.RETRY_ATTEMPTS) {
-        //   return setTimeout(
-        //     () => {
-        //       this.pushDocumentCallback(document, callback, ++retryCount);
-        //     },
-        //     this.RETRY_DELAY
-        //   );
       }
-      // don't need else after a if(...){return}
+
       callback(error, response, body);
     });
   }
@@ -74,35 +57,17 @@ module.exports = class PushClient {
       let params = this.getRequestParams(document);
       request(params, (error, response/*, body*/) => {
         if (error) {
-          // just trying to reduce code duplication... Just a proposal:
-          //
-
-          this.tryAgain(error, document, ++retryCount);
-
-          // if (this.RETRY && retryCount < this.RETRY_ATTEMPTS) {
-          //   console.log(`Error || ${error} || trying to push ${document.documentId}...`);
-          //   console.log(`Retrying ${retryCount+1} time(s) to push ${document.documentId}...`);
-          //   return setTimeout(() => {this.pushDocumentPromise(document, ++retryCount);}, this.RETRY_DELAY);
-          // }
-
+          this.pushDocumentRetry(error, document, ++retryCount);
           reject(error);
           return;
         }
         if(response && response.statusCode !== 202) {
-          this.tryAgain(`${response.statusCode} : ${response.body}`, document, ++retryCount);
-          // if (this.RETRY && retryCount < this.RETRY_ATTEMPTS) {
-          //   console.log(`Error || ${response.statusCode} : ${response.body} || trying to push ${document.documentId}...`);
-          //   console.log(`Retrying ${retryCount+1} time(s) to push ${document.documentId}...`);
-          //   return setTimeout(() => {this.pushDocumentPromise(document, ++retryCount);}, this.RETRY_DELAY);
-          // }
-
+          this.pushDocumentRetry(`${response.statusCode} : ${response.body}`, document, ++retryCount);
           reject(`${response.statusCode} : ${response.body}`);
           return;
         }
         if(response && response.statusCode === 202) {
           resolve(`Pushed document : ${document.documentId}`);
-          // should you return here?
-          // Currently, both the resolve() and the reject() are called in this case.
           return;
         }
         reject(`Unknown error pushing the document.`);
@@ -110,7 +75,7 @@ module.exports = class PushClient {
     });
   }
 
-  tryAgain(errorMsg, document, retryCount, callback) {
+  pushDocumentRetry(errorMsg, document, retryCount, callback) {
     if (this.RETRY && retryCount <= this.RETRY_ATTEMPTS) {
       console.log(`Error || ${errorMsg} || trying to push ${document.documentId}...`);
       console.log(`Try ${retryCount} of ${this.RETRY_ATTEMPTS} to push ${document.documentId}...`);
